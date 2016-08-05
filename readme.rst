@@ -1,46 +1,67 @@
 ###################
-What is CodeIgniter
+Project Description
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+The University of Aruba, the largest university caraîbes Islands, hosts more than 140 students in his classes.
+In order to organize the trip to Quebec of all his students, eager to discover what may look like snow, the University would need to manage the 20 canoe-kayak which it is provided to them across the ocean .
+Each boat holds 8 students maximum.
+
+The director of the University of Aruba, 6 times world champion downhill skiing on boards of forged steel, described his dream interface in the following way:
+
+"Easy to use interface that allows me to directly edit the names of students on the boat and reallocated a passenger ship in the middle of océano.También should be able to reserve a library-boat, so students can relax in groups maximum four students. it also requires that each ship can carry four pairs of skis forged steel (maximum). "
+
+Using the model of data contained in the attached file (ArubaUniversity.zip) try to the best of your abilities to create a modern and useful interface for the director, using using any framework and / or tool you deem necessary .
+It will have, if possible, be available in French and Spanish.
 
 *******************
-Release Information
+Functionalities
 *******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+Add New Student
+Add New Boat
+Add New Book
+
+Modify Student Detail (while student on boat)
+Assige Book to Boat (Then normal boat becomes library boat. Max limit = 4)
+
+Add Student to Boat
+Remove Student from Boat
+Relocate Student from one boat to another boat
+
+Multi Languange Support
 
 **************************
-Changelog and New Features
+Technology Stack
 **************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+Backend
+RESTful API (Mulit language and multi format)
+PHP (CodeIgniter)
+MySQL
+
+Frontend
+HTML5
+CSS3
+JavaScript
+jQuery
+AnuglarJS
+i18Next (Multi Language)
 
 *******************
 Server Requirements
 *******************
 
 PHP version 5.6 or newer is recommended.
-
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+MySQL
 
 ************
 Installation
 ************
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+Udpate rewrite rules in .htacess
+Update Database Settings: application/config/database.php
+Update Base url: application/config/config.php
+Update API url: assets/angular_app/seedApp.js
 
 *******
 License
@@ -48,23 +69,3 @@ License
 
 Please see the `license
 agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
