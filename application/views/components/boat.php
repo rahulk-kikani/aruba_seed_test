@@ -26,9 +26,6 @@
           </form>
         </div>
         <div class="box-footer clearfix">
-           <button type="button" class="pull-right btn btn-default" ng-click="reset()"> Reset
-              <i class="fa fa-retweet"></i></button>
-          </div>
           <button type="button" class="pull-right btn btn-default" id="saveboat" ng-disabled="newboat.name == '' || newboat.price == '' || boatForm.$invalid" ng-click="save_boat()"> {{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
