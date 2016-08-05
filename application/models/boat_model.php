@@ -32,6 +32,48 @@ class Boat_model extends CI_Model {
         }
     }
 
+    public function getAllOceanBoat()
+    {
+        $this->db->select('boat.*, count(boat_has_student.id_boat) AS seat_occupied');
+        $this->db->group_by('boat.id');
+        $this->db->from('boat');
+        $this->db->join('boat_has_student', 'boat_has_student.id_boat = boat.id', 'left'); 
+        $result = $this->db->get()->result();
+        if(count($result) > 0){
+            foreach ($result as $key => $value) {
+                if($this->is_boat_has_book($value->id)){
+                    $value->has_book = true;
+                    $value->books = $this->get_books_by_boat($value->id);
+                } else {
+                    $value->has_book = false;
+                    $value->books = [];
+                }
+
+                $ski_data = $this->check_skipair_by_boat($value->id);
+                if(count($ski_data) > 0){
+                    $value->has_skipair = true;
+                    $value->skipair_count = $this->skipair_max - $ski_data['count'];
+                } else {
+                    $value->has_skipair = false;
+                    $value->skipair_count = 0;
+                }
+
+                $value->students = $this->get_student_by_boat($value->id);
+
+                if($value->has_book){
+                    $value->max_limit = $this->library_max;
+                } else if($value->has_skipair && $value->skipair_count == $this->skipair_max){
+                    $value->max_limit = 0;
+                } else {
+                    $value->max_limit = $this->normal_max;
+                }
+            }
+            return $result;
+        } else {
+            return null;
+        }
+    }
+
     public function insert($data)
     {
         $this->db->insert('boat', $data);
@@ -147,7 +189,7 @@ class Boat_model extends CI_Model {
         }
     }
 
-    public function insert_student_on_boat($id_student, $id_boat)
+    public function insert_student_on_boat($id_student, $id_boat, $has_skipair)
     {
         $boat_has_student = $this->is_student_on_boat($id_student, $id_boat);
         if( $boat_has_student != null){
@@ -155,14 +197,24 @@ class Boat_model extends CI_Model {
         } else {
             $this->db->insert('boat_has_student', array('id_student' => $id_student, 'id_boat' => $id_boat ));
             $insert_id = $this->db->insert_id();
+            if($insert_id > 0 && $has_skipair){
+                $ski_data = $this->check_skipair_by_boat($id_boat);
+                if(count($ski_data) == 0){
+                    $this->db->insert('boat_has_skipair', array('id_student_skipair1' => $id_student, 'id_boat' => $id_boat ));
+                } else {
+                    $this->insert_skipair_by_boat($id_boat, $id_student);
+                }
+            }
             return  $insert_id;
         }
     }
 
     public function get_student_by_boat($id_boat)
     {
-        $this->db->where('id_boat', $id_boat);
-        $result = $this->db->get('boat_has_student')->result();
+        $this->db->select('student.first_name AS first_name, student.last_name AS last_name, student.has_skipair AS has_skipair, boat_has_student.*');
+        $this->db->from('student');
+        $this->db->join('boat_has_student', 'boat_has_student.id_student = student.id AND boat_has_student.id_boat = '.$id_boat);
+        $result = $this->db->get()->result();
         if(count($result) > 0){
             return $result;
         } else {
@@ -204,7 +256,6 @@ class Boat_model extends CI_Model {
     public function insert_skipair_by_boat($id_boat, $id_student)
     {
         $result = $this->check_skipair_by_boat($id_boat);
-        echo count($result);
         if( count($result) > 0){
             $this->db->where('id_boat', $id_boat);
             $this->db->set($result['column'], $id_student);

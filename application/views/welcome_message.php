@@ -34,6 +34,8 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/app.css">
+
   <script src="<?php echo base_url(); ?>assets/angular_app/angular.js" type="text/javascript"></script>
   <script src="<?php echo base_url(); ?>assets/angular_app/seedApp.js" type="text/javascript"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -94,7 +96,6 @@
     <section class="content-header">
       <h1>
         {{$root.tabs[$root.active_tab_index]['title']}}
-        <button type="button" class="btn btn-success" ng-click="add_boat_to_ocean()">+ Add Boat to Ocean</button>
       </h1>
     </section>
 

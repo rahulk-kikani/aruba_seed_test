@@ -62,7 +62,7 @@
             <th class="text-center">ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Ski Pair Statu</th>
+            <th>Ski Pair Status</th>
           </tr>
           <tr ng-repeat="student in $root.students">
             <td class="text-center">{{ student.id }}</td>

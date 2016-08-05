@@ -100,7 +100,7 @@ class Boat extends REST_Controller {
                     $this->set_response([
                         'status' => TRUE,
                         'data' => $data,
-                        'message' => 'Student Profile Created.'
+                        'message' => 'Boat Record Created.'
                     ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
                 } else {
                     $this->response([
@@ -180,6 +180,23 @@ class Boat extends REST_Controller {
     public function all_get()
     {
         $boats = $this->boat_model->getall();
+        if (!empty($boats))
+        {
+            $this->set_response($boats, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'User could not be found'
+            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+
+    //ocean_boat mean boat has at least one student.
+    public function ocean_boat_get()
+    {
+        $boats = $this->boat_model->getAllOceanBoat();
         if (!empty($boats))
         {
             $this->set_response($boats, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
@@ -350,6 +367,40 @@ class Boat extends REST_Controller {
     }
 
     public function student_on_boat_post()
+    {
+        $id_boat = (int) $this->post('id_boat');
+        $id_student = (int) $this->post('id_student');
+
+        // Validate the id.
+        if ($id_boat <= 0 || $id_student <= 0)
+        {
+            // Set the response and exit
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+        }
+        $has_skipair = $this->student_model->student_has_skipair($id_student);
+        $boat_space = $this->boat_model->check_boat_space($id_boat, $has_skipair);
+        if($boat_space){
+            $boat_has_student = $this->boat_model->insert_student_on_boat($id_student, $id_boat, $has_skipair);
+            $message = [
+                'status' => true,
+                'id' => $boat_has_student,
+                'id_boat' => $id_boat,
+                'id_student' => $id_student,
+                'message' => 'Student Added to boat'
+            ];
+            $this->set_response($message, REST_Controller::HTTP_OK); // NO_CONTENT (204) being the HTTP response code
+        } else {
+            $message = [
+                'status' => false,
+                'id_boat' => $id_boat,
+                'id_student' => $id_student,
+                'message' => 'Boat is full'
+            ];
+            $this->set_response($message, REST_Controller::HTTP_OK); // NO_CONTENT (204) being the HTTP response code
+        }
+    }
+
+    public function relocate_student_on_boat_post()
     {
         $id_boat = (int) $this->post('id_boat');
         $id_student = (int) $this->post('id_student');

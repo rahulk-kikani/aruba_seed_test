@@ -25,7 +25,7 @@ seedApp.run(function($rootScope, $location, $http) {
 		{
 			'id': 'boat',
 			'title': 'Boat',
-			'icon': 'fa-dashboard'
+			'icon': 'fa-ship'
 		}
 		,
 		{
@@ -37,18 +37,20 @@ seedApp.run(function($rootScope, $location, $http) {
 	$rootScope.active_tab_index = 0;
 
 	//get all the students
-	$http({
-		method: 'GET',
-		url: $rootScope.api_url+'/student/all'
-	})
-	.success(function(data){
-		$rootScope.students = angular.copy(data);
-		return data;
-	})
-	.error(function(data, status){
-		alert(data.message);
-		return data;
-	});
+	$rootScope.load_students = function(){
+		$http({
+			method: 'GET',
+			url: $rootScope.api_url+'/student/all'
+		})
+		.success(function(data){
+			$rootScope.students = angular.copy(data);
+			return data;
+		})
+		.error(function(data, status){
+			alert(data.message);
+			return data;
+		});
+	};
 
 	//get all the books
 	$http({
@@ -65,30 +67,180 @@ seedApp.run(function($rootScope, $location, $http) {
 	});
 
 	//get all the boat details
-	$http({
-		method: 'GET',
-		url: $rootScope.api_url+'/boat/all'
-	})
-	.success(function(data){
-		$rootScope.boats = angular.copy(data);
-		return data;
-	})
-	.error(function(data, status){
-		alert(data.message);
-		return data;
+	$rootScope.load_boats = function(){
+		$http({
+			method: 'GET',
+			url: $rootScope.api_url+'/boat/all'
+		})
+		.success(function(data){
+			$rootScope.boats = angular.copy(data);
+			return data;
+		})
+		.error(function(data, status){
+			alert(data.message);
+			return data;
+		});
+	};
+
+	//get all ocean boat details
+	$rootScope.load_oceanBoats = function(){
+		$http({
+			method: 'GET',
+			url: $rootScope.api_url+'/boat/allocean'
+		})
+		.success(function(data){
+			$rootScope.oceanBoats = angular.copy(data);
+			return data;
+		})
+		.error(function(data, status){
+			alert(data.message);
+			return data;
+		});
+	};
+
+	$rootScope.load_boats();
+	$rootScope.load_students();
+	$rootScope.load_oceanBoats();
+
+	$rootScope.$on('update-student-details', function(event, args) {
+		$rootScope.load_students();
 	});
 
-	$rootScope.add_boat_to_ocean = function(){
-		angular.element('[ng-controller=oceanController]').add_boat_to_ocean();
-	};
+	$rootScope.$on('update-ocean-boat-details', function(event, args) {
+		$rootScope.load_oceanBoats();
+	});
+
 });
 
-seedApp.controller('oceanController', function($scope, $http, $rootScope){
+seedApp.controller('oceanController', function($scope, $http, $filter, $rootScope){
 
-	$scope.add_boat_to_ocean = function(){
-		alert('hi');
+	$scope.pre_relocate_student = function($id_student, $index){
+		$scope.relocateStudent = {
+			id_boat: '',
+			id_student: $id_student
+		};
+		$scope.currentOceanBoat = angular.copy($scope.oceanBoats[$index]);
+		$scope.filteredBoats = [];
+		$filter('filter')($rootScope.oceanBoats, function(item){
+			if(item.id == $scope.currentOceanBoat.id){
+				return false;
+			} else {
+				$scope.filteredBoats.push({id:item.id, name:item.name});
+				return true;
+			}
+		});
+		if($scope.filteredBoats.length > 0)
+			$scope.relocateStudent.id_boat = $scope.filteredBoats[0].id;
+
+		$('#relocateStudentModal').modal('show');
 	};
 
+	$scope.edit_student = function($student_index, $index){
+		$scope.currentBoat_index = $index;
+		$scope.currentStudent_index = $student_index;
+		$scope.currentStudent = angular.copy($rootScope.oceanBoats[$index].students[$student_index]);
+		var newstudent = {
+			first_name: $scope.currentStudent.first_name,
+			last_name: $scope.currentStudent.last_name,
+			id: $scope.currentStudent.id_student
+		};
+		$('#editStudentModal').modal('show');
+		$scope.currentStudent = angular.copy(newstudent);
+	};
+
+	$scope.update_student = function(){
+		$http({
+			method: 'POST',
+			url: $rootScope.api_url+'/student/profile',
+			data: $.param($scope.currentStudent),
+			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
+		})
+		.success(function(data){
+			$rootScope.oceanBoats[$scope.currentBoat_index].students[$scope.currentStudent_index].first_name = data.data.first_name;
+			$rootScope.oceanBoats[$scope.currentBoat_index].students[$scope.currentStudent_index].last_name = data.data.last_name;
+			$('#editStudentModal').modal('hide');
+			$rootScope.$broadcast('update-student-details');
+			$scope.reset();
+			return data;
+		})
+		.error(function(data, status){
+			console.log(data);
+			return data;
+		});
+	};
+
+	$scope.pre_add_student = function($index){
+		$scope.addStudent = {
+			id_boat: $index,
+			id_student: ''
+		};
+		$scope.assignedStudent = [];
+		angular.forEach($scope.oceanBoats, function(value, key){
+			angular.forEach(value.students, function(value2, key2){
+				$scope.assignedStudent.push(value2);
+			});
+		});
+
+		$scope.filteredStudents = [];
+		$scope.filteredStudents = $filter('filter')($rootScope.students, function(value){
+			var student_avai = true;
+			angular.forEach($scope.assignedStudent, function(value2, key2){
+				if(value2.id_student == value.id){
+					student_avai = false;
+				}
+			});
+			return student_avai;
+		});
+		if($scope.filteredStudents.length > 0)
+			$scope.addStudent.id_student = $scope.filteredStudents[0].id;
+
+		$('#addStudentModal').modal('show');
+	};
+
+	$scope.add_student_to_board = function(){
+		$http({
+			method: 'POST',
+			url: $rootScope.api_url+'/boat/add/student',
+			data: $.param($scope.addStudent),
+			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
+		})
+		.success(function(data){
+			$('#addStudentModal').modal('hide');
+			if(data.status){
+				$rootScope.$broadcast('update-ocean-boat-details');	
+			} else {
+				alert(data.message);
+			}
+			$scope.reset();
+			return 1;
+		})
+		.error(function(data, status){
+			console.log(data);
+			return 1;
+		});
+	};
+
+	$scope.remove_student = function(id_student, id_boat){
+		$http({
+			method: 'DELETE',
+			url: $rootScope.api_url+'/boat/'+id_boat+'/student/'+id_student
+		})
+		.success(function(data){
+			$rootScope.$broadcast('update-ocean-boat-details');
+			return 1;
+		})
+		.error(function(data, status){
+			return 1;
+		});
+	};
+
+	$scope.reset = function(){
+		$scope.currentStudent = {};
+		$scope.currentBoat = {};
+		$scope.currentBoat_index = '';
+		$scope.currentStudent_index = '';
+		$scope.addStudent = {};
+	};
 });
 
 seedApp.controller('studentController', function($scope, $http, $rootScope){
@@ -217,6 +369,7 @@ seedApp.controller('boatController', function($scope, $http, $filter, $rootScope
 		})
 		.success(function(data){
 			$rootScope.boats.push(data.data);
+			$rootScope.$broadcast('update-ocean-boat-details');
 			$scope.reset();
 			return data;
 		})
