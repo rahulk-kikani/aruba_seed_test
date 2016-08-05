@@ -17,18 +17,18 @@ It will have, if possible, be available in French and Spanish.
 Functionalities
 *******************
 
-Add New Student
-Add New Boat
-Add New Book
+* Add New Student
+* Add New Boat
+* Add New Book
 
-Modify Student Detail (while student on boat)
-Assige Book to Boat (Then normal boat becomes library boat. Max limit = 4)
+* Modify Student Detail (while student on boat)
+* Assige Book to Boat (Then normal boat becomes library boat. Max limit = 4)
 
-Add Student to Boat
-Remove Student from Boat
-Relocate Student from one boat to another boat
+* Add Student to Boat
+* Remove Student from Boat
+* Relocate Student from one boat to another boat
 
-Multi Languange Support
+* Multi Languange Support
 
 **************************
 Technology Stack
