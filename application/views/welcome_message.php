@@ -51,7 +51,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body ng-app="seedApp" ng-controller="oceanController" class="hold-transition skin-blue sidebar-mini">
+<body ng-app="seedApp" ng-controller="oceanController" class="hold-transition skin-blue sidebar-mini" ng-cloak>
 <div class="wrapper">
 
   <?php include_once('components/header.php');?>

@@ -6,7 +6,7 @@ seedApp.controller('oceanController', function($scope, $http, $rootScope){
 
 seedApp.run(function($rootScope, $location, $i18next, $http) {
 
-	$rootScope.api_url = "http://localhost/seedtest/api/v1";
+	$rootScope.api_url = "http://localhost/oceantest/api/v1";
 
 	$rootScope.students = [];
 	$rootScope.books = [];
