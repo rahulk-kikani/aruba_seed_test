@@ -53,7 +53,7 @@
 		"boat_name": "Boat Name is required and less than 50 Characters.",
 		"boat_price": "Enter valid price.(Min 1, Max 9999999)",
 		"book_name": "Book Name is required and less than 50 Characters.",
-		"book_name": "Enter valid URL.(e.g http://google.com/)"
+		"url_on_amazon": "Enter valid URL.(e.g https://www.amazon.ca/)"
 	},
 	"copyright": "Copyright © 2014-2016 Rahul Kikani. All rights reserved.",
 	"version": "Version"
