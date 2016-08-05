@@ -34,25 +34,25 @@ Functionalities
 Technology Stack
 **************************
 
-Backend
-RESTful API (Mulit language and multi format)
-PHP (CodeIgniter)
-MySQL
+* Backend
+ * RESTful API (Mulit language and multi format)
+ * PHP (CodeIgniter)
+ * MySQL
 
-Frontend
-HTML5
-CSS3
-JavaScript
-jQuery
-AnuglarJS
-i18Next (Multi Language)
+* Frontend
+ * HTML5
+ * CSS3
+ * JavaScript
+ * jQuery
+ * AnuglarJS
+ * i18Next (Multi Language)
 
 *******************
 Server Requirements
 *******************
 
-PHP version 5.6 or newer is recommended.
-MySQL
+* PHP version 5.6 or newer is recommended.
+* MySQL
 
 ************
 Installation
