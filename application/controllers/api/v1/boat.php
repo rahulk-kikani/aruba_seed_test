@@ -400,22 +400,28 @@ class Boat extends REST_Controller {
         }
     }
 
-    public function relocate_student_on_boat_post()
+    public function relocate_student_post()
     {
         $id_boat = (int) $this->post('id_boat');
+        $id_boat_dest = (int) $this->post('id_boat_dest');
         $id_student = (int) $this->post('id_student');
 
         // Validate the id.
-        if ($id_boat <= 0 || $id_student <= 0)
+        if ($id_boat <= 0 || $id_boat_dest <= 0 || $id_student <= 0)
         {
             // Set the response and exit
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
         }
         $has_skipair = $this->student_model->student_has_skipair($id_student);
-        $boat_space = $this->boat_model->check_boat_space($id_boat, $has_skipair);
+        $boat_space = $this->boat_model->check_boat_space($id_boat_dest, $has_skipair);
         if($boat_space){
-            $boat_has_student = $this->boat_model->insert_student_on_boat($id_student, $id_boat);
+            //delete user from old boat
+            $this->boat_model->student_on_boat_delete($id_student, $id_boat);
+
+            //add user to new boat
+            $boat_has_student = $this->boat_model->insert_student_on_boat($id_student, $id_boat_dest, $has_skipair);
             $message = [
+                'status' => true,
                 'id' => $boat_has_student,
                 'id_boat' => $id_boat,
                 'id_student' => $id_student,
@@ -424,6 +430,7 @@ class Boat extends REST_Controller {
             $this->set_response($message, REST_Controller::HTTP_OK); // NO_CONTENT (204) being the HTTP response code
         } else {
             $message = [
+                'status' => false,
                 'id_boat' => $id_boat,
                 'id_student' => $id_student,
                 'message' => 'Boat is full'

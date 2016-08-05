@@ -11,6 +11,22 @@ seedApp.run(function($rootScope, $location, $http) {
 	$rootScope.students = [];
 	$rootScope.books = [];
 
+	$rootScope.languages = [
+		{
+			'id': 'en',
+			'title': 'EN'
+		},
+		{
+			'id': 'fr',
+			'title': 'FR'
+		},
+		{
+			'id': 'es',
+			'title': 'ES'
+		}
+	];
+	$rootScope.active_language_index = 0;
+
 	$rootScope.tabs = [
 		{
 			'id': 'ocean',
@@ -114,15 +130,15 @@ seedApp.run(function($rootScope, $location, $http) {
 
 seedApp.controller('oceanController', function($scope, $http, $filter, $rootScope){
 
-	$scope.pre_relocate_student = function($id_student, $index){
+	$scope.pre_relocate_student = function($id_student, $id_boat){
 		$scope.relocateStudent = {
-			id_boat: '',
-			id_student: $id_student
+			id_boat: $id_boat,
+			id_student: $id_student,
+			id_boat_dest: ''
 		};
-		$scope.currentOceanBoat = angular.copy($scope.oceanBoats[$index]);
 		$scope.filteredBoats = [];
 		$filter('filter')($rootScope.oceanBoats, function(item){
-			if(item.id == $scope.currentOceanBoat.id){
+			if(item.id == $id_boat){
 				return false;
 			} else {
 				$scope.filteredBoats.push({id:item.id, name:item.name});
@@ -130,9 +146,32 @@ seedApp.controller('oceanController', function($scope, $http, $filter, $rootScop
 			}
 		});
 		if($scope.filteredBoats.length > 0)
-			$scope.relocateStudent.id_boat = $scope.filteredBoats[0].id;
+			$scope.relocateStudent.id_boat_dest = $scope.filteredBoats[0].id;
 
 		$('#relocateStudentModal').modal('show');
+	};
+
+	$scope.relocate_student = function(){
+		$http({
+			method: 'POST',
+			url: $rootScope.api_url+'/boat/relocate/student',
+			data: $.param($scope.relocateStudent),
+			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
+		})
+		.success(function(data){
+			if(data.status){
+				$rootScope.$broadcast('update-ocean-boat-details');	
+			} else {
+				alert(data.message);
+			}
+			$scope.reset();
+			return data;
+		})
+		.error(function(data, status){
+			console.log(data);
+			return data;
+		});
+		$('#relocateStudentModal').modal('hide');
 	};
 
 	$scope.edit_student = function($student_index, $index){
@@ -240,6 +279,7 @@ seedApp.controller('oceanController', function($scope, $http, $filter, $rootScop
 		$scope.currentBoat_index = '';
 		$scope.currentStudent_index = '';
 		$scope.addStudent = {};
+		$scope.relocateStudent = {};
 	};
 });
 
@@ -391,6 +431,7 @@ seedApp.controller('boatController', function($scope, $http, $filter, $rootScope
 			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
 		})
 		.success(function(data){
+			$rootScope.$broadcast('update-ocean-boat-details');
 			$scope.get_books_on_boat($scope.currentBoat.id_boat);
 			return data;
 		})

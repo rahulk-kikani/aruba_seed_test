@@ -82,7 +82,7 @@
               <div class="col-md-3" style="padding: 7px;"><label>Add New Book: </label></div>
               <div class="col-md-7">
                 <select class="form-control" name="singleSelect" ng-model="currentBoat.id_book">
-                  <option ng-repeat="book in filteredBooks" value="{{book.id}}">{{book.name}}</option>
+                  <option ng-repeat="book in filteredBooks" value="{{book.id}}">{{book.id}}. {{book.name}}</option>
                 </select>
               </div>
               <div class="col-md-2">
@@ -99,7 +99,7 @@
               <th>Link</th>
             </tr>
             <tr ng-repeat="book in boatBooks">
-              <td class="text-center">{{ book.id }}</td>
+              <td class="text-center">{{ book.id_book }}</td>
               <td>{{ book.name }}</td>
               <td><a href="{{ book.url_on_amazon }}" target="_blank">{{ book.url_on_amazon }}</a></td>
             </tr>

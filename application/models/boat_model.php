@@ -63,7 +63,7 @@ class Boat_model extends CI_Model {
                 if($value->has_book){
                     $value->max_limit = $this->library_max;
                 } else if($value->has_skipair && $value->skipair_count == $this->skipair_max){
-                    $value->max_limit = 0;
+                    $value->max_limit = $this->normal_max;
                 } else {
                     $value->max_limit = $this->normal_max;
                 }

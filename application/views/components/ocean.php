@@ -1,5 +1,5 @@
 <div ng-controller="oceanController" ng-show="$root.tabs[$root.active_tab_index]['id'] == 'ocean'">
-  <div class="row">
+  <div class="row" style="display: none;">
     <div class="col-lg-4 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-aqua">
@@ -61,6 +61,7 @@
             }"
           >
             <h3 class="widget-user-username">{{ boat.id }}. {{ boat.name }} </h3>
+            <h5 class="widget-user-desc">${{ boat.price }}</h5>
             <h5 class="widget-user-desc">{{ boat.color }}</h5>
           </div>
           <div class="box-footer">
@@ -84,7 +85,7 @@
               <div class="col-sm-4">
                 <div class="description-block">
                   <h5 class="description-header">{{ boat.skipair_count }}/4</h5>
-                  <span class="description-text"><i class="fa fa-steam"></i></span>
+                  <span class="description-text"><i class="fa fa-steam"></i> Ski</span>
                 </div>
                 <!-- /.description-block -->
               </div>
@@ -104,7 +105,7 @@
                     <td>{{ student.first_name }}, {{ student.last_name }}</span></td>
                     <td><span class="label" ng-class="{'label-success': student.has_skipair == 1, 'label-danger': student.has_skipair == 0}">{{ student.has_skipair == 1 ? 'Yes' : 'No' }}</span></td>
                     <td>
-                      <span class="label label-primary relocate-btn" ng-click="pre_relocate_student(student.id, $parent.$index)">
+                      <span class="label label-primary relocate-btn" ng-click="pre_relocate_student(student.id_student, boat.id)">
                         <i class="fa fa-retweet"></i>
                       </span>
                       <span class="label label-info relocate-btn" ng-click="edit_student($index, $parent.$index)">
@@ -140,7 +141,7 @@
             <div class="" ng-show="filteredBoats.length > 0">
               <div class="col-md-3" style="padding: 7px;"><label>Destination Boat: </label></div>
               <div class="col-md-7">
-                <select class="form-control" name="singleSelect" ng-model="relocateStudent.id_boat">
+                <select class="form-control" name="singleSelect" ng-model="relocateStudent.id_boat_dest">
                   <option ng-repeat="boat in filteredBoats" value="{{boat.id}}">{{boat.id}}. {{boat.name}}</option>
                 </select>
               </div>
@@ -149,7 +150,7 @@
           <br/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" >Save</button>
+          <button ng-show="filteredBoats.length > 0" type="button" class="btn btn-primary" ng-click="relocate_student()">Save</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div><!-- /.modal-content -->

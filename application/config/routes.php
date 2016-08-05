@@ -74,6 +74,7 @@ $route['api/v(:num)/boat/book'] = 'api/v$1/boat/book';
 $route['api/v(:num)/boat/(:num)/book'] = 'api/v$1/boat/book/id/$2';
 $route['api/v(:num)/boat/(:num)/book/(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/v$1/boat/book/id/$2/format/$3$4';
 
+$route['api/v(:num)/boat/relocate/student'] = 'api/v$1/boat/relocate_student';
 $route['api/v(:num)/boat/add/student'] = 'api/v$1/boat/student_on_boat';
 $route['api/v(:num)/boat/add/student/(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/v$1/boat/student_on_boat/format/$4$5';
 
