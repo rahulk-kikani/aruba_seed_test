@@ -26,6 +26,7 @@ class Boat extends REST_Controller {
         $this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key
 
         $this->load->model('boat_model');
+        $this->load->model('book_model');
         $this->load->model('student_model');
     }
 
@@ -76,8 +77,6 @@ class Boat extends REST_Controller {
         // If the id parameter doesn't exist create/insert student profile into database
         if ($id === NULL)
         {
-            
-
             $name = $this->post('name');
             $price = $this->post('price');
             $color = $this->post('color');
@@ -114,13 +113,14 @@ class Boat extends REST_Controller {
         } else {
 
             //Update student profile info.
-            $id = (int) $id;
-
             // Validate the id.
-            if ($id <= 0)
+            if ($id <= 0 || $this->boat_model->get($id) == null)
             {
                 // Invalid id, set the response and exit.
-                $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
             }
 
             $data = [];
@@ -163,10 +163,13 @@ class Boat extends REST_Controller {
         $id = (int) $this->get('id');
 
         // Validate the id.
-        if ($id <= 0)
+        if ($id <= 0 || $this->boat_model->get($id) == null)
         {
             // Set the response and exit
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
         }
 
         $this->boat_model->delete($id);
@@ -260,11 +263,15 @@ class Boat extends REST_Controller {
         $id_book = (int) $this->post('id_book');
 
         // Validate the id.
-        if ($id_boat <= 0 || $id_book <= 0)
+        if ($id_boat <= 0 || $id_book <= 0 || $this->boat_model->get($id_boat) == null || $this->book_model->get($id_book) == null)
         {
             // Set the response and exit
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
         }
+
         $boat_book_id = $this->boat_model->insert_book_to_boat($id_book, $id_boat);
         if($boat_book_id > 0){
             $message = [
@@ -372,11 +379,15 @@ class Boat extends REST_Controller {
         $id_student = (int) $this->post('id_student');
 
         // Validate the id.
-        if ($id_boat <= 0 || $id_student <= 0)
+        if ($id_boat <= 0 || $id_student <= 0 || $this->boat_model->get($id_boat) == null || $this->student_model->get($id_student) == null)
         {
             // Set the response and exit
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
         }
+
         $has_skipair = $this->student_model->student_has_skipair($id_student);
         $boat_space = $this->boat_model->check_boat_space($id_boat, $has_skipair);
         if($boat_space){
@@ -407,10 +418,13 @@ class Boat extends REST_Controller {
         $id_student = (int) $this->post('id_student');
 
         // Validate the id.
-        if ($id_boat <= 0 || $id_boat_dest <= 0 || $id_student <= 0)
+        if ($id_boat <= 0 || $id_boat_dest <= 0 || $id_student <= 0 || $this->boat_model->get($id_boat) == null || $this->boat_model->get($id_boat_dest) == null || $this->student_model->get($id_student) == null)
         {
             // Set the response and exit
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
         }
         $has_skipair = $this->student_model->student_has_skipair($id_student);
         $boat_space = $this->boat_model->check_boat_space($id_boat_dest, $has_skipair);
@@ -445,10 +459,13 @@ class Boat extends REST_Controller {
         $id_student = (int) $this->get('id_student');
 
         // Validate the id.
-        if ($id_boat <= 0 || $id_student <= 0)
+        if ($id_boat <= 0 || $id_student <= 0 || $this->boat_model->get($id_boat) == null || $this->student_model->get($id_student) == null)
         {
             // Set the response and exit
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            $this->response([
+                    'status' => FALSE,
+                    'message' => 'Invalid Data'
+                ], REST_Controller::HTTP_OK); // HTTP_OK (200) being the HTTP response code
         }
 
         $this->boat_model->student_on_boat_delete($id_student, $id_boat);
