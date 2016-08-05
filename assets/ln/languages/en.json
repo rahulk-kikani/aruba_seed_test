@@ -1,0 +1,52 @@
+{ 
+	"menu" : {
+		"hello": "Hello",
+		"ocean": "Ocean",
+		"boat": "Boat",
+		"student": "Student",
+		"book": "Book"
+	},
+	"online": "Online",
+	"buttons": {
+		"close": "Close",
+		"save": "Save",
+		"add_student": "Add Student",
+		"update": "Update",
+		"add": "Add",
+		"view": "View"
+	},
+	"titles": {
+		"add_book_detail": "Add Book Detail",
+		"book_list": "Book List",
+		"add_boat_detail": "Add Boat Detail",
+		"boat_list": "Boat List",
+		"book_on_board": "Books on Boat Detail",
+		"add_student_detail": "Add Student Detail",
+		"student_list": "Student List",
+		"select_destination_boat": "Select Destination Boat",
+		"edit_student_detail": "Edit Student Detail",
+		"select_student": "Select Student"
+	},
+	"attr": {
+		"id": "ID",
+		"title": "Title",
+		"link": "Link",
+		"name": "Name",
+		"price": "Price",
+		"color": "Color",
+		"action": "Action",
+		"add_new_book": "Add New Book",
+		"ski_pair_status": "Ski Pair Status",
+		"first_name": "First Name",
+		"last_name": "Last Name",
+		"yes": "Yes",
+		"no": "No",
+		"destination_boat": "Destination Boat",
+		"ski": "Ski"
+	},
+	"message": {
+		"no_book_on_boat":"No book on boat"
+	},
+	"copyright": "Copyright © 2014-2016 Rahul Kikani. All rights reserved.",
+	"version": "Version"
+}

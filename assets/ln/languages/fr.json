@@ -1,0 +1,52 @@
+{ 
+	"menu": {
+		"hello": "Bonjour",
+		"ocean": "Océan",
+		"boat": "Bateau",
+		"student": "Étudiant",
+		"book": "Livre"
+	},
+	"online": "en ligne",
+	"buttons": {
+		"close": "Fermer",
+		"save": "Sauvegarder",
+		"add_student": "Ajouter étudiant",
+		"update": "Mettre à jour",
+		"add": "Ajouter",
+		"view": "Vue"
+	},
+	"titles": {
+		"add_book_detail": "Commander EUR Détail",
+		"book_list": "Liste de livres",
+		"add_boat_detail": "Ajouter Détail Bateau",
+		"boat_list": "Liste Bateau",
+		"book_on_board": "Livres sur Détail Bateau",
+		"add_student_detail": "Ajouter Détail étudiant",
+		"student_list": "Liste des étudiants",
+		"select_destination_boat": "Sélectionner Destination Bateau",
+		"edit_student_detail": "Détail Modifier étudiant",
+		"select_student": "Sélectionnez étudiant"
+	},
+	"attr": {
+		"id": "ID",
+		"title": "Titre",
+		"link": "Lien",
+		"name": "Nom",
+		"price": "Prix",
+		"color": "Couleur",
+		"action": "Action",
+		"add_new_book": "Ajouter un nouveau livre",
+		"ski_pair_status": "Ski Paire Statut",
+		"first_name": "Prénom",
+		"last_name": "Nom de famille",
+		"yes": "Oui",
+		"no": "Non",
+		"destination_boat": "Destination Bateau",
+		"ski": "Ski"
+	},
+	"message": {
+		"no_book_on_boat":"Aucun livre sur le bateau"
+	},
+	"copyright": "Copyright © 2014-2016 Rahul Kikani. Tous les droits sont réservés.",
+	"version": "Version"
+}

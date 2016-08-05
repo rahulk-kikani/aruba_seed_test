@@ -5,18 +5,18 @@
         <div class="box-header">
           <i class="fa fa-envelope"></i>
 
-          <h3 class="box-title">Add Boat Detail</h3>
+          <h3 class="box-title">{{ 'titles.add_boat_detail' | i18next }}</h3>
         </div>
         <div class="box-body">
           <form action="#" method="post">
             <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="Name:" ng-model="newboat.name">
+              <input type="text" class="form-control" name="name" placeholder="{{ 'attr.name' | i18next }}:" ng-model="newboat.name">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="price" placeholder="Price:" ng-model="newboat.price">
+              <input type="text" class="form-control" name="price" placeholder="{{ 'attr.price' | i18next }}:" ng-model="newboat.price">
             </div>
             <div class="form-group">
-              <label>Color</label><br/>
+              <label>{{ 'attr.color' | i18next }}</label><br/>
               <select name="singleSelect" ng-model="newboat.color">
                 <option ng-repeat="color in boatColors" value="{{color}}">{{color}}</option>
               </select>
@@ -24,7 +24,7 @@
           </form>
         </div>
         <div class="box-footer clearfix">
-          <button type="button" class="pull-right btn btn-default" id="saveboat" ng-disabled="newboat.name == '' || newboat.price == ''" ng-click="save_boat()">Add
+          <button type="button" class="pull-right btn btn-default" id="saveboat" ng-disabled="newboat.name == '' || newboat.price == ''" ng-click="save_boat()"> {{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
       </div>
@@ -32,7 +32,7 @@
   <div class="col-xs-9">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Boat List</h3>
+        <h3 class="box-title">{{ 'titles.boat_list' | i18next }}</h3>
 
         <div style="display: none;" class="box-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -48,18 +48,18 @@
       <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
           <tr>
-            <th class="text-center">ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Color</th>
-            <th>Action</th>
+            <th class="text-center">{{ 'attr.id' | i18next}}</th>
+            <th>{{ 'attr.name' | i18next}}</th>
+            <th>{{ 'attr.price' | i18next}}</th>
+            <th>{{ 'attr.color' | i18next}}</th>
+            <th>{{ 'attr.action' | i18next}}</th>
           </tr>
           <tr ng-repeat="boat in $root.boats">
             <td class="text-center">{{ boat.id }}</td>
             <td>{{ boat.name }}</td>
             <td>${{ boat.price }}</td>
             <td>{{ boat.color }}</td>
-            <td><button class="btn btn-primary" ng-click="get_books_on_boat(boat.id)">View</button></td>
+            <td><button class="btn btn-primary" ng-click="get_books_on_boat(boat.id)">{{ 'buttons.view' | i18next }}</button></td>
           </tr>
         </table>
       </div>
@@ -73,30 +73,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Books on Boat Detail</h4>
+          <h4 class="modal-title">{{ 'titles.book_on_board' | i18next }}</h4>
         </div>
         <div class="modal-body">
           <div class="box-body table-responsive no-padding">
           <div class="form-group">
             <div class="" ng-show="filteredBooks.length > 0">
-              <div class="col-md-3" style="padding: 7px;"><label>Add New Book: </label></div>
+              <div class="col-md-3" style="padding: 7px;"><label>{{ 'attr.add_new_book' | i18next }}: </label></div>
               <div class="col-md-7">
                 <select class="form-control" name="singleSelect" ng-model="currentBoat.id_book">
                   <option ng-repeat="book in filteredBooks" value="{{book.id}}">{{book.id}}. {{book.name}}</option>
                 </select>
               </div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-success" ng-click="add_new_book_to_boat()">Add</button>
+                <button type="button" class="btn btn-success" ng-click="add_new_book_to_boat()">{{ 'buttons.add' | i18next }}</button>
               </div>
             </div>
           </div>
           <br/>
           <br/>
-          <table class="table table-hover">
+          <table ng-if="boatBooks.length > 0" class="table table-hover">
             <tr>
-              <th class="text-center">ID</th>
-              <th>Title</th>
-              <th>Link</th>
+              <th class="text-center">{{ 'attr.id' | i18next}}</th>
+              <th>{{ 'attr.title' | i18next }}</th>
+              <th>{{ 'attr.link' | i18next }}</th>
             </tr>
             <tr ng-repeat="book in boatBooks">
               <td class="text-center">{{ book.id_book }}</td>
@@ -104,11 +104,11 @@
               <td><a href="{{ book.url_on_amazon }}" target="_blank">{{ book.url_on_amazon }}</a></td>
             </tr>
           </table>
-          <span ng-if="boatBooks.length == 0">No book on boat.</span>
+          <span ng-if="boatBooks.length == 0">{{ 'message.no_book_on_boat' | i18next}}.</span>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'buttons.close' | i18next }}</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

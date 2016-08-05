@@ -1,0 +1,52 @@
+{ 
+	"menu": {
+		"hello": "¡Hola",
+		"ocean": "Oceano",
+		"boat": "Barco",
+		"student": "Estudiante",
+		"book": "Libro"
+	},
+	"online": "En línea",
+	"buttons": {
+		"close": "Cerca",
+		"save": "Salvar",
+		"add_student": "Añadir Estudiante",
+		"update": "Actualizar",
+		"add": "Añadir",
+		"view": "Ver"
+	},
+	"titles": {
+		"add_book_detail": "Añadir libro Detalle",
+		"book_list": "Lista de libros",
+		"add_boat_detail": "Añadir Detalle del barco",
+		"boat_list": "Lista barco",
+		"book_on_board": "Libros en el barco detalle",
+		"add_student_detail": "Añadir Detalle del Estudiante",
+		"student_list": "Lista de Estudiantes",
+		"select_destination_boat": "Seleccionar Destino Barco",
+		"edit_student_detail": "Detalle Editar alumno",
+		"select_student": "Student Select"
+	},
+	"attr": {
+		"id": "identificación",
+		"title": "Título",
+		"link": "Enlace",
+		"name": "Nombre",
+		"price": "Precio",
+		"color": "Color",
+		"action": "Acción",
+		"add_new_book": "Agregar nuevo libro",
+		"ski_pair_status": "Par de esquí Estado",
+		"first_name": "Nombre de pila",
+		"last_name": "Apellido",
+		"yes": "Sí",
+		"no": "No",
+		"destination_boat": "Destino Barco",
+		"ski": "Esquí"
+	},
+	"message": {
+		"no_book_on_boat":"Ningún libro en el barco"
+	},
+	"copyright": "Copyright © 2014-2016 Rahul Kikani. Todos los derechos reservados.",
+	"version": "Versión"
+}

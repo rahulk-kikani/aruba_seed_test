@@ -5,20 +5,20 @@
         <div class="box-header">
           <i class="fa fa-envelope"></i>
 
-          <h3 class="box-title">Add Book Detail</h3>
+          <h3 class="box-title">{{ 'titles.add_book_detail' | i18next}}</h3>
         </div>
         <div class="box-body">
           <form action="#" method="post">
             <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="Title:" ng-model="newbook.name">
+              <input type="text" class="form-control" name="name" placeholder="{{ 'attr.title' | i18next}}:" ng-model="newbook.name">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="url_on_amazon" placeholder="Link:" ng-model="newbook.url_on_amazon">
+              <input type="text" class="form-control" name="url_on_amazon" placeholder="{{ 'attr.link' | i18next}}:" ng-model="newbook.url_on_amazon">
             </div>
           </form>
         </div>
         <div class="box-footer clearfix">
-          <button type="button" class="pull-right btn btn-default" id="saveBook" ng-disabled="newbook.first_name == '' || newbook.url_on_amazon == '' || newbook.has_skipair === ''" ng-click="save_book()">Add
+          <button type="button" class="pull-right btn btn-default" id="saveBook" ng-disabled="newbook.first_name == '' || newbook.url_on_amazon == '' || newbook.has_skipair === ''" ng-click="save_book()">{{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
       </div>
@@ -26,7 +26,7 @@
   <div class="col-xs-9">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Book List</h3>
+        <h3 class="box-title">{{ 'titles.book_list' | i18next}}</h3>
 
         <div style="display: none;" class="box-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -42,9 +42,9 @@
       <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
           <tr>
-            <th class="text-center">ID</th>
-            <th>Title</th>
-            <th>Link</th>
+            <th class="text-center">{{ 'attr.id' | i18next}}</th>
+            <th>{{ 'attr.title' | i18next}}</th>
+            <th>{{ 'attr.link' | i18next}}</th>
           </tr>
           <tr ng-repeat="Book in $root.books">
             <td class="text-center">{{ Book.id }}</td>

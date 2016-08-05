@@ -1,10 +1,10 @@
-var seedApp = angular.module('seedApp',[]);
+var seedApp = angular.module('seedApp',['jm.i18next']);
 
 seedApp.controller('oceanController', function($scope, $http, $rootScope){
 	console.log(123);
 });
 
-seedApp.run(function($rootScope, $location, $http) {
+seedApp.run(function($rootScope, $location, $i18next, $http) {
 
 	$rootScope.api_url = "http://localhost/seedtest/api/v1";
 
@@ -27,26 +27,38 @@ seedApp.run(function($rootScope, $location, $http) {
 	];
 	$rootScope.active_language_index = 0;
 
+	$rootScope.changeLng = function ($index) {
+        if ($rootScope.languages[$index].id === 'patrick') {
+            $i18next.options.postProcess = 'patrick';
+        } else {
+        	$rootScope.active_language_index = $index;
+            $i18next.options.postProcess = '';
+            $i18next.options.lng = $rootScope.languages[$index].id;
+        }
+    };
+
+	$rootScope.changeLng($rootScope.active_language_index);
+
 	$rootScope.tabs = [
 		{
 			'id': 'ocean',
-			'title': 'Ocean',
+			'title': 'menu.ocean',
 			'icon': 'fa-th'
 		},
 		{
 			'id': 'student',
-			'title': 'Student',
+			'title': 'menu.student',
 			'icon': 'fa-laptop'
 		},
 		{
 			'id': 'boat',
-			'title': 'Boat',
+			'title': 'menu.boat',
 			'icon': 'fa-ship'
 		}
 		,
 		{
 			'id': 'book',
-			'title': 'Book',
+			'title': 'menu.book',
 			'icon': 'fa-book'
 		}
 	];
@@ -439,4 +451,26 @@ seedApp.controller('boatController', function($scope, $http, $filter, $rootScope
 			return data;
 		});
 	};
+});
+
+
+//anular modules
+angular.module('jm.i18next').config(function ($i18nextProvider) {
+    'use strict';
+    /*jshint unused:false */
+    window.i18n.addPostProcessor('patrick', function (value, key, options) {
+        //https://www.youtube.com/watch?v=YSzOXtXm8p0
+        return 'No, this is Patrick!';
+    });
+    window.i18n.addPostProcessor('test', function (value, key, options) {
+        return 'PostProcessor is working!';
+    });
+    /*jshint unused:true */
+    $i18nextProvider.options = {
+        lng: 'en', // If not given, i18n will detect the browser language.
+        fallbackLng: 'fr', // Default is dev
+        useCookie: false,
+        useLocalStorage: false,
+        resGetPath: 'assets/ln/languages/__lng__.json'
+    };
 });

@@ -37,6 +37,12 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/app.css">
 
   <script src="<?php echo base_url(); ?>assets/angular_app/angular.js" type="text/javascript"></script>
+
+  <script src="<?php echo base_url(); ?>assets/ln/i18next.js"></script>
+  <script src="<?php echo base_url(); ?>assets/ln/src/provider.js"></script>
+  <script src="<?php echo base_url(); ?>assets/ln/src/filter/filter.js"></script>
+  <script src="<?php echo base_url(); ?>assets/ln/src/directive/directive.js"></script>
+
   <script src="<?php echo base_url(); ?>assets/angular_app/seedApp.js" type="text/javascript"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,7 +66,7 @@
         </div>
         <div class="pull-left info">
           <p>Rahul Kikani</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> {{ 'online' | i18next }}</a>
         </div>
       </div>
 
@@ -70,7 +76,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview" ng-repeat="tab in $root.tabs" ng-class="{'active': $root.active_tab_index == $index }" ng-click="$root.active_tab_index = $index ">
             <a href="#">
-                <i class="fa {{tab.icon}}"></i> <span>{{tab.title}}</span>
+                <i class="fa {{tab.icon}}"></i> <span>{{ tab.title | i18next }}</span>
                 <span ng-show="$root.active_tab_index == $index" class="pull-right-container">
                   <i class="fa fa-check pull-right"></i>
                 </span>
@@ -86,7 +92,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        {{$root.tabs[$root.active_tab_index]['title']}}
+        {{ $root.tabs[$root.active_tab_index]['title'] | i18next }}
       </h1>
     </section>
 
@@ -107,10 +113,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0
+      <b>{{ 'version' | i18next }}</b> 1.0
     </div>
-    <strong>Copyright &copy; 2014-2016 Rahul Kikani.</strong> All rights
-    reserved.
+    <strong>{{ 'copyright' | i18next }}
   </footer>
 
   <!-- /.control-sidebar -->
