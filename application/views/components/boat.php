@@ -8,12 +8,14 @@
           <h3 class="box-title">{{ 'titles.add_boat_detail' | i18next }}</h3>
         </div>
         <div class="box-body">
-          <form action="#" method="post">
+          <form action="#" method="post" name="boatForm">
             <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="{{ 'attr.name' | i18next }}:" ng-model="newboat.name">
+              <input type="text" class="form-control" name="boat_name" placeholder="{{ 'attr.name' | i18next }}:" ng-model="newboat.name" required="">
+              <p ng-show="boatForm.boat_name.$invalid && !boatForm.boat_name.$pristine" class="help-block error-block">{{ 'errors.boat_name' | i18next }}</p>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="price" placeholder="{{ 'attr.price' | i18next }}:" ng-model="newboat.price">
+              <input type="number" class="form-control" name="boat_price" min="1" max="9999999" placeholder="{{ 'attr.price' | i18next }}:" ng-model="newboat.price" required="">
+              <p ng-show="boatForm.boat_price.$invalid && !boatForm.boat_price.$pristine" class="help-block error-block">{{ 'errors.boat_price' | i18next }}</p>
             </div>
             <div class="form-group">
               <label>{{ 'attr.color' | i18next }}</label><br/>
@@ -24,7 +26,10 @@
           </form>
         </div>
         <div class="box-footer clearfix">
-          <button type="button" class="pull-right btn btn-default" id="saveboat" ng-disabled="newboat.name == '' || newboat.price == ''" ng-click="save_boat()"> {{ 'buttons.add' | i18next }}
+           <button type="button" class="pull-right btn btn-default" ng-click="reset()"> Reset
+              <i class="fa fa-retweet"></i></button>
+          </div>
+          <button type="button" class="pull-right btn btn-default" id="saveboat" ng-disabled="newboat.name == '' || newboat.price == '' || boatForm.$invalid" ng-click="save_boat()"> {{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
       </div>

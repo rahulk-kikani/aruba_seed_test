@@ -8,12 +8,14 @@
           <h3 class="box-title">{{ 'titles.add_student_detail' | i18next }}</h3>
         </div>
         <div class="box-body">
-          <form action="#" method="post">
+          <form action="#" method="post" name="studentForm">
             <div class="form-group">
-              <input type="text" class="form-control" name="first_name" placeholder="{{ 'attr.first_name' | i18next }}:" ng-model="newstudent.first_name">
+              <input type="text" class="form-control" name="first_name" maxlength="70" placeholder="{{ 'attr.first_name' | i18next }}:" ng-model="newstudent.first_name" required="">
+              <p ng-show="studentForm.first_name.$invalid && !studentForm.first_name.$pristine" class="help-block error-block">{{ 'errors.first_name' | i18next }}</p>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="last_name" placeholder="{{ 'attr.last_name' | i18next }}:" ng-model="newstudent.last_name">
+              <input type="text" class="form-control" name="last_name" maxlength="70" placeholder="{{ 'attr.last_name' | i18next }}:" ng-model="newstudent.last_name" required="">
+              <p ng-show="studentForm.last_name.$invalid && !studentForm.last_name.$pristine" class="help-block error-block">{{ 'errors.last_name' | i18next }}</p>
             </div>
             <div class="form-group">
               <label>{{ 'attr.ski_pair_status' | i18next }}</label><br/>
@@ -35,7 +37,7 @@
           </form>
         </div>
         <div class="box-footer clearfix">
-          <button type="button" class="pull-right btn btn-default" id="saveStudent" ng-disabled="newstudent.first_name == '' || newstudent.last_name == '' || newstudent.has_skipair === ''" ng-click="save_student()">{{ 'buttons.add' | i18next }}
+          <button type="button" class="pull-right btn btn-default" id="saveStudent" ng-disabled="newstudent.first_name == '' || newstudent.last_name == '' || newstudent.has_skipair === '' || studentForm.$invalid" ng-click="save_student()">{{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
       </div>

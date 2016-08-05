@@ -47,6 +47,14 @@
 	"message": {
 		"no_book_on_boat":"Ningún libro en el barco"
 	},
+	"errors":{
+		"first_name": "Nombre requerido y menos de 70 caracteres.",
+		"last_name": "Apellido es requerido y menos de 70 caracteres.",
+		"boat_name": "Nombre del barco que se requiere y menos de 50 caracteres.",
+		"boat_price": "Anote el precio válido. (Min 1, Max 9999999)",
+		"book_name": "Nombre del libro que se requiere y menos de 50 caracteres.",
+		"book_name": "Introducir URL válida. (Por ejemplo http://google.com/)"
+	},
 	"copyright": "Copyright © 2014-2016 Rahul Kikani. Todos los derechos reservados.",
 	"version": "Versión"
 }

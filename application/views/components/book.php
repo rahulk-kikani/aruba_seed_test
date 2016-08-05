@@ -8,17 +8,19 @@
           <h3 class="box-title">{{ 'titles.add_book_detail' | i18next}}</h3>
         </div>
         <div class="box-body">
-          <form action="#" method="post">
+          <form action="#" method="post" name="bookForm">
             <div class="form-group">
-              <input type="text" class="form-control" name="name" placeholder="{{ 'attr.title' | i18next}}:" ng-model="newbook.name">
+              <input type="text" class="form-control" name="book_name" maxlength="50" placeholder="{{ 'attr.title' | i18next}}:" ng-model="newbook.name" required="">
+              <p ng-show="bookForm.book_name.$invalid && !bookForm.book_name.$pristine" class="help-block error-block">{{ 'errors.book_name' | i18next }}</p>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="url_on_amazon" placeholder="{{ 'attr.link' | i18next}}:" ng-model="newbook.url_on_amazon">
+              <input type="url" class="form-control" name="url_on_amazon" maxlength="255" placeholder="{{ 'attr.link' | i18next}}:" ng-model="newbook.url_on_amazon" required="">
+              <p ng-show="bookForm.url_on_amazon.$invalid && !bookForm.url_on_amazon.$pristine" class="help-block error-block">{{ 'errors.url_on_amazon' | i18next }}</p>
             </div>
           </form>
         </div>
         <div class="box-footer clearfix">
-          <button type="button" class="pull-right btn btn-default" id="saveBook" ng-disabled="newbook.first_name == '' || newbook.url_on_amazon == '' || newbook.has_skipair === ''" ng-click="save_book()">{{ 'buttons.add' | i18next }}
+          <button type="button" class="pull-right btn btn-default" id="saveBook" ng-disabled="newbook.first_name == '' || newbook.url_on_amazon == '' || newbook.has_skipair === '' || bookForm.$invalid" ng-click="save_book()">{{ 'buttons.add' | i18next }}
             <i class="fa fa-arrow-circle-right"></i></button>
         </div>
       </div>

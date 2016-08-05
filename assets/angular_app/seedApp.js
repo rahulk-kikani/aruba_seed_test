@@ -292,6 +292,7 @@ seedApp.controller('oceanController', function($scope, $http, $filter, $rootScop
 		$scope.currentStudent_index = '';
 		$scope.addStudent = {};
 		$scope.relocateStudent = {};
+		$scope.studentEditForm.$setPristine();
 	};
 });
 
@@ -325,6 +326,7 @@ seedApp.controller('studentController', function($scope, $http, $rootScope){
 
 	$scope.reset = function () {
 		$scope.newstudent = angular.copy(newstudent);
+		$scope.studentForm.$setPristine();
 	};
 });
 
@@ -356,6 +358,7 @@ seedApp.controller('bookController', function($scope, $http, $rootScope){
 
 	$scope.reset = function () {
 		$scope.newbook = angular.copy(newbook);
+		$scope.bookForm.$setPristine();
 	};
 });
 
@@ -386,6 +389,7 @@ seedApp.controller('boatController', function($scope, $http, $filter, $rootScope
 
 	$scope.reset = function () {
 		$scope.newboat = angular.copy(newboat);
+		$scope.boatForm.$setPristine();
 	};
 
 	$scope.get_books_on_boat = function(id_boat){

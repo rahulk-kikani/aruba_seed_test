@@ -4,3 +4,6 @@
 .relocate-btn {
 	margin-left: 5px;
 }
+.error-block {
+    color: #d02828 !important;
+}

@@ -119,17 +119,19 @@
           <h4 class="modal-title">{{ 'titles.edit_student_detail' | i18next }}</h4>
         </div>
         <div class="modal-body">
-          <form action="#" method="post">
+          <form action="#" method="post" name="studentEditForm">
             <div class="form-group">
-              <input type="text" class="form-control" name="first_name" placeholder="First Name:" ng-model="currentStudent.first_name">
+              <input type="text" class="form-control" name="first_name" maxlength="70" placeholder="First Name:" ng-model="currentStudent.first_name" required="">
+              <p ng-show="studentEditForm.first_name.$invalid && !studentEditForm.first_name.$pristine" class="help-block error-block">{{ 'errors.first_name' | i18next }}</p>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="last_name" placeholder="Last Name:" ng-model="currentStudent.last_name">
+              <input type="text" class="form-control" name="last_name" maxlength="70" placeholder="Last Name:" ng-model="currentStudent.last_name" required="">
+              <p ng-show="studentEditForm.last_name.$invalid && !studentEditForm.last_name.$pristine" class="help-block error-block">{{ 'errors.last_name' | i18next }}</p>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="saveStudent" ng-disabled="currentStudent.first_name == '' || currentStudent.last_name == ''" ng-click="update_student()">Update
+          <button type="button" class="btn btn-primary" id="saveStudent" ng-disabled="currentStudent.first_name == '' || currentStudent.last_name == '' || studentEditForm.$invalid" ng-click="update_student()">Update
             <i class="fa fa-arrow-circle-right"></i></button>
           <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'buttons.close' | i18next }}</button>
         </div>
